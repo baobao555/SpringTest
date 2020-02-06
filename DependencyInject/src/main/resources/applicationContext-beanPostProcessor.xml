@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--指定init-method和destroy-method
+    init-method：在构造方法调用完成之后执行
+    destroy-method：单例模式的bean在容器销毁后执行
+    -->
+    <bean id="address" class="com.baobao.springtest.di.bean.Address"
+          init-method="init" destroy-method="destroy">
+        <property name="country" value="America"/>
+        <property name="province" value="Washington"/>
+    </bean>
+
+    <!--配置自定义BeanPostProcessor，无需指定id，Spring会自动识别-->
+    <bean class="com.baobao.springtest.di.beanpostprocessor.MyBeanPostProcessor"/>
+
+</beans>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--配置业务功能bean-->
+    <bean id="calculator" class="com.baobao.springtest.aop.xml.CalculatorImpl"/>
+
+    <!--配置日志切面bean-->
+    <bean id="loggingAspect" class="com.baobao.springtest.aop.xml.LoggingAspect"/>
+
+    <!--配置校验切面bean-->
+    <bean id="validateAspect" class="com.baobao.springtest.aop.xml.ValidateAspect"/>
+
+    <!--配置aop-->
+    <aop:config>
+        <!--配置切入点表达式-->
+        <aop:pointcut id="pointCut" expression="execution(* com.baobao.springtest.aop.xml.Calculator.*(..))"/>
+
+        <!--切面的优先级：
+        首先看不同切面的order属性配置，数字越小优先级越高
+        其次在同一个切面中，如果既有普通通知又有环绕通知，环绕通知优先级高于普通通知-->
+
+        <!--配置日志切面
+        ref：引用切面bean的id   order：切面优先级-->
+        <aop:aspect ref="loggingAspect" order="1">
+            <!--前置通知-->
+            <aop:before method="beforeNotify" pointcut-ref="pointCut"/>
+            <!--后置通知-->
+            <aop:after method="afterNotify" pointcut-ref="pointCut"/>
+            <!--异常通知-->
+            <aop:after-throwing method="afterThrowingNotify" pointcut-ref="pointCut" throwing="ex"/>
+            <!--正常返回通知-->
+            <aop:after-returning method="afterReturningNotify" pointcut-ref="pointCut" returning="result"/>
+            <!--环绕通知-->
+            <aop:around method="aroundNotify" pointcut-ref="pointCut"/>
+        </aop:aspect>
+
+        <aop:aspect ref="validateAspect" order="2">
+            <aop:around method="aroundNotify" pointcut-ref="pointCut"/>
+        </aop:aspect>
+    </aop:config>
+</beans>

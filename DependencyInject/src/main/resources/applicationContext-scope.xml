@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--    bean标签
+作用： 用于配置对象让spring来创建的。 默认情况下它调用的是类中的无参构造函数。
+       如果没有无参构造函数则不能创建成功。
+属性：
+id：给对象在容器中提供一个唯一标识。用于获取对象。
+class：指定类的全限定类名。用于反射创建对象。默认情况下调用无参构造函数。
+scope：指定对象的作用范围。 * singleton :默认值，单例的.
+                          * prototype :多例的.
+                          * request :WEB项目中,Spring创建一个Bean的对象,将对象存入到request域中.
+                          * session :WEB项目中,Spring创建一个Bean的对象,将对象存入到session域中.
+                          * global session :WEB项目中,应用在Portlet环境.如果没有Portlet环境那么globalSession相当于session.
+   单例对象：scope="singleton" 一个应用只有一个对象的实例。它的作用范围就是整个引用。
+        生命周期： 对象出生：当应用加载，创建容器时，对象就被创建了。
+                  对象活着：只要容器在，对象一直活着。
+                  对象死亡：当应用卸载，销毁容器时，对象就被销毁了。
+   多例对象：scope="prototype" 每次访问对象时，都会重新创建对象实例。
+        生命周期： 对象出生：当使用对象时，创建新的对象实例。
+                  对象活着：只要对象在使用中，就一直活着。
+                  对象死亡：当对象长时间不用时，被java的垃圾回收器回收了。
+init-method：指定类中的初始化方法名称。 destroy-method：指定类中销毁方法名称。-->
+
+    <!--scope属性默认为singleton，IOC容器创建时就实例化一个单例对象，以后每次从容器获取都是同个对象-->
+    <bean id="person" class="com.baobao.springtest.di.bean.Person"/>
+    <!--scope配置为prototype原型，表示多例模式，只有在获取时才实例化对象，每次获取都会新创建对象-->
+    <bean id="address" class="com.baobao.springtest.di.bean.Address" scope="prototype"/>
+
+</beans>

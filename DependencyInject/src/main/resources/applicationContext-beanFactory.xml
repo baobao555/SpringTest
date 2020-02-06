@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--静态bean工厂：无需创建工厂实例，直接用工厂的静态方法生成bean
+    class：静态bean工厂的全类名
+    factory-method：生成bean的工厂静态方法
+    constructor-arg：工厂静态方法的参数
+    -->
+    <bean id="address1" class="com.baobao.springtest.di.beanfactory.StaticBeanFactory"
+          factory-method="getAddress">
+        <constructor-arg name="province" value="FuJian"/>
+    </bean>
+
+    <!--实例bean工厂：先创建bean工厂实例，再利用工厂实例的方法生成bean-->
+    <!--创建bean工厂实例-->
+    <bean id="instanceBeanFactory" class="com.baobao.springtest.di.beanfactory.InstanceBeanFactory">
+        <property name="country" value="China"/>
+    </bean>
+
+    <!--创建bean
+    factory-bean：指定bean工厂实例
+    factory-method：指定创建bean的方法
+    constructor-arg：指定factory-method的参数
+    -->
+    <bean id="address2" factory-bean="instanceBeanFactory" factory-method="getAddress">
+        <constructor-arg name="province" value="GuangDong"/>
+    </bean>
+
+</beans>

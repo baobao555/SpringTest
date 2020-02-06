@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--配置组件扫描，将加过相关注解的bean自动扫描加入到容器中
+    base-package：需要扫描的包-->
+    <context:component-scan base-package="com.baobao.springtest.di.annotation"/>
+
+    <!--exclude-filter:配置哪些bean不扫描
+    type="annotation" expression="org.springframework.stereotype.Controller"：配置不扫描Controller注解-->
+
+    <!--<context:component-scan base-package="com.baobao.springtest.di.annotation">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>-->
+
+    <!--include-filter：配置扫描哪些bean  use-default-filters="false"：禁用默认扫描规则，默认会全部扫描-->
+
+    <!--<context:component-scan base-package="com.baobao.springtest.di.annotation" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>-->
+</beans>
